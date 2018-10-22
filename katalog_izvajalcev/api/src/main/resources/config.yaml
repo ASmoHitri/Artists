@@ -1,0 +1,9 @@
+kumuluzee:
+  name: microservice-artists-catalog
+  version: 1.0.0
+  env:
+    name: dev
+  server:
+    base-url : "http://localhost:8081/v1"
+    http:
+      port: 8081
