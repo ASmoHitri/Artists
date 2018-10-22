@@ -1,7 +1,16 @@
 package Models;
 
+@Entity(name = "artists")
 public class Artist {
+
+    @XmlID
+    @XmlElement
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
+    @Column(unique = true, nullable = false)
     private String name;
 
     public int getId() {
