@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
-    <persistence-unit name="artists-jpa" transaction-type="JTA">
-        <jta-data-source>jdbc/ArtistsDS</jta-data-source>
+    <persistence-unit name="catalogs-jpa" transaction-type="JTA">
+        <jta-data-source>jdbc/streamingDS</jta-data-source>
 
-        <class>models.Artist</class>
+        <class>entities.Artist</class>
 
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
