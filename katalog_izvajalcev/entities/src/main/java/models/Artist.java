@@ -3,8 +3,8 @@ package Models;
 @Entity(name = "artists")
 public class Artist {
 
-    @XmlID
-    @XmlElement
+    //@XmlID
+    //@XmlElement
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

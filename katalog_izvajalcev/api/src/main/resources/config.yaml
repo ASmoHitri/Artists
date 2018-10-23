@@ -1,5 +1,5 @@
 kumuluzee:
-  name: microservice-artists-catalog
+  name: microservice-catalog
   version: 1.0.0
   env:
     name: dev
