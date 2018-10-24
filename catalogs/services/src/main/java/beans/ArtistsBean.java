@@ -22,9 +22,11 @@ public class ArtistsBean {
     @PersistenceContext(unitName = "catalogs-jpa")
     private EntityManager entityManager;
 
-    public List<Artist> getArtistsFilter() {
+    public List<Artist> getArtists() {
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
         return JPAUtils.queryEntities(entityManager, Artist.class, queryParameters);
     }
+
+
 
 }
