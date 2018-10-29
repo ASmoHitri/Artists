@@ -9,6 +9,6 @@ kumuluzee:
         username: postgres
         max-pool-size: 20
   server:
-    base-url : "http://localhost:8081/v1"
+    base-url : http://localhost:8081
     http:
       port: 8081
