@@ -7,7 +7,6 @@ kumuluzee:
       - jndi-name: jdbc/streamingDS
         connection-url: jdbc:postgresql://192.168.99.100:5432/streaming
         username: postgres
-        password: postgres
         max-pool-size: 20
   server:
     base-url : "http://localhost:8081/v1"

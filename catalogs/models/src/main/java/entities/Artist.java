@@ -12,7 +12,7 @@ public class Artist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int id = -1;
 
     @Column(unique = true, nullable = false)
     private String name;
