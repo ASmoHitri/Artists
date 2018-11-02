@@ -30,31 +30,63 @@ public class ArtistsBean {
         return entityManager.find(Artist.class, artistId);
     }
 
-    @Transactional
-    public Artist addArtist(Artist artist) {
+    public void addArtist(Artist artist) {
         if (artist != null) {
-            entityManager.persist(artist);
+//            System.out.println(artist.toString());
+            try{
+                beginTx();
+                entityManager.persist(artist);
+                commitTx();
+            } catch (Exception e) {
+                rollbackTx();
+            }
+
+
         }
-        return artist;
     }
 
-    @Transactional
     public Artist updateArtist(int artistId, Artist artist) {
         if (getArtist(artistId) == null || artist == null) {
             return null;
         }
-        artist.setId(artistId);
-        entityManager.merge(artist);
+        try{
+            beginTx();
+            artist.setId(artistId);
+            entityManager.merge(artist);
+            commitTx();
+        } catch (Exception e) {
+            rollbackTx();
+        }
         return artist;
     }
 
-    @Transactional
     public boolean removeArtist(int artistId) {
         Artist artist = entityManager.find(Artist.class, artistId);
         if (artist != null) {
-            entityManager.remove(artist);
+            try{
+                beginTx();
+                entityManager.remove(artist);
+                commitTx();
+            } catch (Exception e) {
+                rollbackTx();
+            }
             return true;
         }
         return false;
+    }
+
+    private void beginTx() {
+        if (!entityManager.getTransaction().isActive())
+            entityManager.getTransaction().begin();
+    }
+
+    private void commitTx() {
+        if (entityManager.getTransaction().isActive())
+            entityManager.getTransaction().commit();
+    }
+
+    private void rollbackTx() {
+        if (entityManager.getTransaction().isActive())
+            entityManager.getTransaction().rollback();
     }
 }
