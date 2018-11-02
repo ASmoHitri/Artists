@@ -40,8 +40,6 @@ public class ArtistsBean {
             } catch (Exception e) {
                 rollbackTx();
             }
-
-
         }
     }
 

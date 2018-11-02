@@ -40,7 +40,6 @@ public class ArtistResource {
         if (artist == null || artist.getName() == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        System.out.println(artist.getId());
         artistsBean.addArtist(artist);
 //        if (artist.getId() > 0) {
 //            return Response.status(Response.Status.CONFLICT).build();
