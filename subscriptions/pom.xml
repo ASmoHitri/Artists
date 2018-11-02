@@ -11,7 +11,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>models</module>
+        <module>api-subscriptions</module>
+        <module>models-subscriptions</module>
+        <module>services-subscriptions</module>
     </modules>
 
     <properties>
@@ -42,8 +44,18 @@
 
             <dependency>
                 <groupId>asmohitri</groupId>
-                <artifactId>models</artifactId>
-                <version>${project.version}</version>
+                <artifactId>api-subscriptions</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>asmohitri</groupId>
+                <artifactId>models-subscriptions</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>asmohitri</groupId>
+                <artifactId>services-subscriptions</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
