@@ -3,16 +3,17 @@ package entities;
 import javax.persistence.*;
 
 @Entity(name = "artists")
-/*@NamedQueries(value =
-        {
-                @NamedQuery(name = "Artists.getAll", query = "SELECT a FROM artists a")
-        })
-*/
+//@NamedQueries(value =
+//        {
+//                @NamedQuery(name = "Artists.getAll", query = "SELECT a FROM artists a")
+//                @NamedQuery(name = "Artists.add", query = "INSERT INTO artists (name) VALUES (artist)")
+//        })
+
 public class Artist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id = -1;
+    private int id;
 
     @Column(unique = true, nullable = false)
     private String name;
