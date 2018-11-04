@@ -28,7 +28,7 @@ public class UsersResource {
 
     @GET
     @Path("{id}")
-    public Response getUsers(@PathParam("id") int userId) {
+    public Response getUser(@PathParam("id") int userId) {
         ResponseUser user = usersBean.getUser(userId);
         if (user == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -41,7 +41,12 @@ public class UsersResource {
         if (user == null || user.getUsername() == null || user.getMail() == null || user.getPassword() == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        // TODO: duplicates management
+        // check for duplicates
+        List<User> existingUsers = usersBean.getByUsernameOrMail(user.getUsername(), user.getMail());
+        if (!existingUsers.isEmpty()) {
+            return Response.status(Response.Status.CONFLICT).build();
+        }
+
         Boolean success = usersBean.addUser(user);
         if (!success) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -55,11 +60,11 @@ public class UsersResource {
         if (user == null || userId < 0 || user.getUsername() == null || user.getMail() == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        user = usersBean.updateUser(userId, user);
-        if (user == null) {
+        ResponseUser responseUser = usersBean.updateUser(userId, user);
+        if (responseUser == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(user).build();
+        return Response.ok(responseUser).build();
     }
 
     @DELETE
