@@ -13,13 +13,13 @@ public class Song {
     @Column(nullable = false)
     private String title;
 
-    @OneToMany
-    @Column(nullable = false)
-    private List<Artist> artists;
-
-    @ManyToOne
-    @JoinColumn(name = "id")
-    private Album album;
+//    @OneToMany
+//    @Column(nullable = false)
+//    private List<Artist> artists;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "id")
+//    private Album album;
 
     @Column(name = "genre_id")
     private int genreId;
@@ -41,21 +41,21 @@ public class Song {
         this.title = title;
     }
 
-    public List<Artist> getArtists() {
-        return artists;
-    }
-
-    public void setArtists(List<Artist> artists) {
-        this.artists = artists;
-    }
-
-    public Album getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(Album album) {
-        this.album = album;
-    }
+//    public List<Artist> getArtists() {
+//        return artists;
+//    }
+//
+//    public void setArtists(List<Artist> artists) {
+//        this.artists = artists;
+//    }
+//
+//    public Album getAlbum() {
+//        return album;
+//    }
+//
+//    public void setAlbum(Album album) {
+//        this.album = album;
+//    }
 
     public int getGenreId() {
         return genreId;

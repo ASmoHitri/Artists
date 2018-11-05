@@ -9,7 +9,6 @@ import entities.Song;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
@@ -44,7 +43,7 @@ public class SongBean {
         }
     }
 //dodaj Artist list, genre.
-    public Song updateSong(int songId, Song song, List<Artist> artists, Album album ) {
+    public Song updateSong(int songId, Song song) {
         if (getSong(songId) == null || song == null) {
             return null;
         }
@@ -52,7 +51,7 @@ public class SongBean {
             TransactionsHandler.beginTx(entityManager);
             song.setId(songId);
             //song.setArtist(artist);
-            song.setAlbum(album);
+            //song.setAlbum(album);
             entityManager.merge(song);
             TransactionsHandler.commitTx(entityManager);
         } catch (Exception e) {

@@ -5,9 +5,9 @@ import javax.persistence.*;
 @Entity(name = "users")
 @NamedQueries(value =
         {
-                @NamedQuery(name = "Users.getByUsernameOrMail",
-                            query = "SELECT u FROM users u WHERE u.username=:username OR u.mail=:mail"),
-                @NamedQuery(name = "Users.updateUser", query = "UPDATE users u SET u.username=:username, u.mail=:mail")
+            @NamedQuery(name = "Users.getByUsernameOrMail",
+                        query = "SELECT u FROM users u WHERE u.username=:username OR u.mail=:mail"),
+            @NamedQuery(name = "Users.updateUser", query = "UPDATE users u SET u.username=:username, u.mail=:mail")
         })
 public class User {
 

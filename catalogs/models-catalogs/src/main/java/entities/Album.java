@@ -13,9 +13,9 @@ public class Album {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany
-    @Column(nullable = false)
-    private List<Artist> artists;
+//    @OneToMany
+//    @Column(nullable = false)
+//    private List<Artist> artists;
 
     @Column(name = "genre_id")
     private int genreId;
@@ -37,13 +37,13 @@ public class Album {
         this.name = name;
     }
 
-    public List<Artist> getArtists() {
-        return artists;
-    }
-
-    public void setArtists(List<Artist> artist) {
-        this.artists = artist;
-    }
+//    public List<Artist> getArtists() {
+//        return artists;
+//    }
+//
+//    public void setArtists(List<Artist> artist) {
+//        this.artists = artist;
+//    }
 
     public int getGenreId() {
         return genreId;

@@ -50,12 +50,12 @@ public class SongResource {
 
     @PUT // popravi, ker je sedaj song list, dodaj genre.
     @Path("{id}") // je to okej? bi tu moral biti se Artist artist in Album album?, dodatni checki?
-    public Response updateSong(@PathParam("id") int songId, Song song, List<Artist> artists, Album album, Genre genre) {
+    public Response updateSong(@PathParam("id") int songId, Song song) {
         // TODO
-        if (song == null || songId < 0 || song.getTitle() == null || artists == null || album.getName() == null) {
+        if (song == null || songId < 0 || song.getTitle() == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        song = songBean.updateSong(songId, song, artists, album);
+        song = songBean.updateSong(songId, song);
         if (song == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
