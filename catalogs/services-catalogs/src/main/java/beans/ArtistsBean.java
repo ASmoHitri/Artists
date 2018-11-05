@@ -70,7 +70,7 @@ public class ArtistsBean {
             }
             return true;
         }
-        return false;r
+        return false;
     }
 
     private void beginTx() {
@@ -83,7 +83,7 @@ public class ArtistsBean {
             entityManager.getTransaction().commit();
     }
 
-    private void rollbackTx() {››
+    private void rollbackTx() {
         if (entityManager.getTransaction().isActive())
             entityManager.getTransaction().rollback();
     }
