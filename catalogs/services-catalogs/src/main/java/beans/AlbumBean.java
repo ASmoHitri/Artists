@@ -32,30 +32,28 @@ public class AlbumBean {
 
     public void addAlbum(Album album) {
         if (album != null) {
-//            System.out.println(album.toString());
             try{
-                beginTx();
+                TransactionsHandler.beginTx(entityManager);
                 entityManager.persist(album);
-                commitTx();
+                TransactionsHandler.commitTx(entityManager);
             } catch (Exception e) {
-                rollbackTx();
+                TransactionsHandler.rollbackTx(entityManager);
             }
         }
     }
 
-    public Album updateAlbum(int albumId, Album album, List<Artist> artists, Genre genre) {
-        if (getSong(albumId) == null || album == null) {
+    public Album updateAlbum(int albumId, Album album) {
+        if (getAlbum(albumId) == null || album == null) {
             return null;
         }
         try{
-            beginTx();
+            TransactionsHandler.beginTx(entityManager);
             album.setId(albumId);
-            album.setArtists(artists);
-            album.setGenre(genre);
+            //album.setArtists(artists);
             entityManager.merge(album);
-            commitTx();
+            TransactionsHandler.commitTx(entityManager);
         } catch (Exception e) {
-            rollbackTx();
+            TransactionsHandler.rollbackTx(entityManager);
         }
         return album;
     }
@@ -64,29 +62,15 @@ public class AlbumBean {
         Album album = entityManager.find(Album.class, albumId);
         if (album != null) {
             try{
-                beginTx();
+                TransactionsHandler.beginTx(entityManager);
                 entityManager.remove(album);
-                commitTx();
+                TransactionsHandler.commitTx(entityManager);
             } catch (Exception e) {
-                rollbackTx();
-        }
+                TransactionsHandler.rollbackTx(entityManager);
+                return false;
+            }
             return true;
         }
         return false;
-    }
-
-    private void beginTx() {
-        if (!entityManager.getTransaction().isActive())
-            entityManager.getTransaction().begin();
-    }
-
-    private void commitTx() {
-        if (entityManager.getTransaction().isActive())
-            entityManager.getTransaction().commit();
-    }
-
-    private void rollbackTx() {
-        if (entityManager.getTransaction().isActive())
-            entityManager.getTransaction().rollback();
     }
 }

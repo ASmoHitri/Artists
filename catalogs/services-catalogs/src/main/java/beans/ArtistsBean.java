@@ -7,7 +7,6 @@ import entities.Artist;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
@@ -32,13 +31,12 @@ public class ArtistsBean {
 
     public void addArtist(Artist artist) {
         if (artist != null) {
-//            System.out.println(artist.toString());
             try{
-                beginTx();
+                TransactionsHandler.beginTx(entityManager);
                 entityManager.persist(artist);
-                commitTx();
+                TransactionsHandler.commitTx(entityManager);
             } catch (Exception e) {
-                rollbackTx();
+                TransactionsHandler.rollbackTx(entityManager);
             }
         }
     }
@@ -48,12 +46,12 @@ public class ArtistsBean {
             return null;
         }
         try{
-            beginTx();
+            TransactionsHandler.beginTx(entityManager);
             artist.setId(artistId);
             entityManager.merge(artist);
-            commitTx();
+            TransactionsHandler.commitTx(entityManager);
         } catch (Exception e) {
-            rollbackTx();
+            TransactionsHandler.rollbackTx(entityManager);
         }
         return artist;
     }
@@ -62,29 +60,14 @@ public class ArtistsBean {
         Artist artist = entityManager.find(Artist.class, artistId);
         if (artist != null) {
             try{
-                beginTx();
+                TransactionsHandler.beginTx(entityManager);
                 entityManager.remove(artist);
-                commitTx();
+                TransactionsHandler.commitTx(entityManager);
             } catch (Exception e) {
-                rollbackTx();
+                TransactionsHandler.rollbackTx(entityManager);
             }
             return true;
         }
         return false;
-    }
-
-    private void beginTx() {
-        if (!entityManager.getTransaction().isActive())
-            entityManager.getTransaction().begin();
-    }
-
-    private void commitTx() {
-        if (entityManager.getTransaction().isActive())
-            entityManager.getTransaction().commit();
-    }
-
-    private void rollbackTx() {
-        if (entityManager.getTransaction().isActive())
-            entityManager.getTransaction().rollback();
     }
 }

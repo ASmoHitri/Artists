@@ -1,29 +1,26 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "albums")
-//@NamedQueries(value =
-//        {
-//                @NamedQuery(name = "Artists.getAll", query = "SELECT a FROM artists a")
-//                @NamedQuery(name = "Artists.add", query = "INSERT INTO artists (name) VALUES (artist)")
-//        })
-
-public class Album { \\manjkajo getterji in setterji ker je vse sivo?
+public class Album {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String name;
 
-
-    @Column(nullabe = false) //tako?
+    @OneToMany
+    @Column(nullable = false)
     private List<Artist> artists;
 
-    @Column() \\ (@OneToOne?)
-    private Genre genre;
+    @Column(name = "genre_id")
+    private int genreId;
+
+
     public int getId() {
         return id;
     }
@@ -40,20 +37,20 @@ public class Album { \\manjkajo getterji in setterji ker je vse sivo?
         this.name = name;
     }
 
-    public Artist getArtist() {
-        return artist;
+    public List<Artist> getArtists() {
+        return artists;
     }
 
-    public void setArtist(Artist artist) {
-        this.artist = artist;
+    public void setArtists(List<Artist> artist) {
+        this.artists = artist;
     }
 
-    public Album getAlbum() {
-        return album;
+    public int getGenreId() {
+        return genreId;
     }
 
-    public void setAlbum(Album album) {
-        this.album = album;
+    public void setGenreId(int genreId) {
+        this.genreId = genreId;
     }
 }
 

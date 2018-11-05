@@ -4,6 +4,9 @@
         <jta-data-source>jdbc/streamingDS</jta-data-source>
 
         <class>entities.Artist</class>
+        <class>entities.Album</class>
+        <class>entities.Song</class>
+        <class>entities.Genre</class>
 
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>

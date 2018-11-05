@@ -2,6 +2,8 @@ package beans;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
+import entities.Album;
+import entities.Artist;
 import entities.Song;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -32,61 +34,35 @@ public class SongBean {
 
     public void addSong(Song song) {
         if (song != null) {
-//            System.out.println(artist.toString());
             try{
-                beginTx();
+                TransactionsHandler.beginTx(entityManager);
                 entityManager.persist(song);
-                commitTx();
+                TransactionsHandler.commitTx(entityManager);
             } catch (Exception e) {
-                rollbackTx();
+                TransactionsHandler.rollbackTx(entityManager);
             }
         }
     }
 //dodaj Artist list, genre.
-    public Song updateSong(int songId, Song song, Artist artist, Album album ) {
+    public Song updateSong(int songId, Song song, List<Artist> artists, Album album ) {
         if (getSong(songId) == null || song == null) {
             return null;
         }
         try{
-            beginTx();
+            TransactionsHandler.beginTx(entityManager);
             song.setId(songId);
-            song.setArtist(artist);
+            //song.setArtist(artist);
             song.setAlbum(album);
             entityManager.merge(song);
-            commitTx();
+            TransactionsHandler.commitTx(entityManager);
         } catch (Exception e) {
-            rollbackTx();
+            TransactionsHandler.rollbackTx(entityManager);
         }
         return song;
     }
 
     public boolean removeSong(int songId) {
         Song song = entityManager.find(Song.class, songId);
-        if (song != null) {
-            try{
-                beginTx();
-                entityManager.remove(song);
-                commitTx();
-            } catch (Exception e) {
-                rollbackTx();
-        }
-            return true;
-        }
-        return false;
-    }
-
-    private void beginTx() {
-        if (!entityManager.getTransaction().isActive())
-            entityManager.getTransaction().begin();
-    }
-
-    private void commitTx() {
-        if (entityManager.getTransaction().isActive())
-            entityManager.getTransaction().commit();
-    }
-
-    private void rollbackTx() {
-        if (entityManager.getTransaction().isActive())
-            entityManager.getTransaction().rollback();
+        return TransactionsHandler.removeObject(entityManager, song);
     }
 }

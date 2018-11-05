@@ -1,32 +1,29 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "songs")
-//@NamedQueries(value =
-//        {
-//                @NamedQuery(name = "Artists.getAll", query = "SELECT a FROM artists a")
-//                @NamedQuery(name = "Artists.add", query = "INSERT INTO artists (name) VALUES (artist)")
-//        })
-
 public class Song {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(unique = true, nullable = false)
-    private String name;
+    @Column(nullable = false)
+    private String title;
 
-
-    @OneToMany()
+    @OneToMany
+    @Column(nullable = false)
     private List<Artist> artists;
 
-    @Column()
+    @ManyToOne
+    @JoinColumn(name = "id")
     private Album album;
 
-    @Columns()
-    private Genre genre;
+    @Column(name = "genre_id")
+    private int genreId;
+
 
     public int getId() {
         return id;
@@ -36,15 +33,21 @@ public class Song {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
+    public List<Artist> getArtists() {
+        return artists;
+    }
 
+    public void setArtists(List<Artist> artists) {
+        this.artists = artists;
+    }
 
     public Album getAlbum() {
         return album;
@@ -52,5 +55,13 @@ public class Song {
 
     public void setAlbum(Album album) {
         this.album = album;
+    }
+
+    public int getGenreId() {
+        return genreId;
+    }
+
+    public void setGenreId(int genreId) {
+        this.genreId = genreId;
     }
 }
