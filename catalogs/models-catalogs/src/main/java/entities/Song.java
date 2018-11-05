@@ -19,7 +19,7 @@ public class Song {
     private String name;
 
 
-    @Column(nullable = false)
+    @OneToMany()
     private List<Artist> artists;
 
     @Column()

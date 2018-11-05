@@ -22,7 +22,8 @@ public class Album { \\manjkajo getterji in setterji ker je vse sivo?
     @Column(nullabe = false) //tako?
     private List<Artist> artists;
 
-
+    @Column() \\ (@OneToOne?)
+    private Genre genre;
     public int getId() {
         return id;
     }

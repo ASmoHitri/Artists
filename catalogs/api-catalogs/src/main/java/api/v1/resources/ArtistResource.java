@@ -48,7 +48,7 @@ public class ArtistResource {
     }
 
     @PUT
-    @Path("{id}")
+    @Path("{id}") 
     public Response updateArtist(@PathParam("id") int artistId, Artist artist) {
         if (artist == null || artistId < 0 || artist.getName() == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
