@@ -9,9 +9,9 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <modules>
-        <module>api</module>
-        <module>models</module>
-        <module>services</module>
+        <module>api-catalogs</module>
+        <module>models-catalogs</module>
+        <module>services-catalogs</module>
     </modules>
 
     <properties>
@@ -44,17 +44,17 @@
 
             <dependency>
                 <groupId>asmohitri</groupId>
-                <artifactId>api</artifactId>
+                <artifactId>api-catalogs</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>asmohitri</groupId>
-                <artifactId>models</artifactId>
+                <artifactId>models-catalogs</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>asmohitri</groupId>
-                <artifactId>services</artifactId>
+                <artifactId>services-catalogs</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
         </dependencies>

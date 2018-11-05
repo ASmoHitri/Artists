@@ -6,11 +6,11 @@
 
     <parent>
         <groupId>asmohitri</groupId>
-        <artifactId>catalogs</artifactId>
+        <artifactId>subscriptions</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>api</artifactId>
+    <artifactId>api-subscriptions</artifactId>
 
     <dependencies>
         <dependency>
@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>asmohitri</groupId>
-            <artifactId>services</artifactId>
+            <artifactId>services-subscriptions</artifactId>
         </dependency>
     </dependencies>
 
