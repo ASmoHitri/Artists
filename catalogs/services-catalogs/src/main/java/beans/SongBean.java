@@ -2,7 +2,7 @@ package beans;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
-import entities.Artist;
+import entities.Song;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -13,7 +13,7 @@ import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 @ApplicationScoped
-public class ArtistsBean {
+public class SongBean {
 
     @Context
     protected UriInfo uriInfo;
@@ -21,56 +21,58 @@ public class ArtistsBean {
     @PersistenceContext(unitName = "catalogs-jpa")
     private EntityManager entityManager;
 
-    public List<Artist> getArtists() {
+    public List<Song> getSongs() {
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
-        return JPAUtils.queryEntities(entityManager, Artist.class, queryParameters);
+        return JPAUtils.queryEntities(entityManager, Song.class, queryParameters);
     }
 
-    public Artist getArtist(int artistId) {
-        return entityManager.find(Artist.class, artistId);
+    public Song getSong(int songId) {
+        return entityManager.find(Song.class, songId);
     }
 
-    public void addArtist(Artist artist) {
-        if (artist != null) {
+    public void addSong(Song song) {
+        if (song != null) {
 //            System.out.println(artist.toString());
             try{
                 beginTx();
-                entityManager.persist(artist);
+                entityManager.persist(song);
                 commitTx();
             } catch (Exception e) {
                 rollbackTx();
             }
         }
     }
-
-    public Artist updateArtist(int artistId, Artist artist) {
-        if (getArtist(artistId) == null || artist == null) {
+//dodaj Artist list, genre.
+    public Song updateSong(int songId, Song song, Artist artist, Album album ) {
+        if (getSong(songId) == null || song == null) {
             return null;
         }
         try{
             beginTx();
-            artist.setId(artistId);
-            entityManager.merge(artist);
+            song.setId(songId);
+            song.setArtist(artist);
+            song.setAlbum(album);
+            entityManager.merge(song);
             commitTx();
         } catch (Exception e) {
             rollbackTx();
         }
-        return artist;
+        return song;
     }
 
-    public boolean removeArtist(int artistId) {
-        Artist artist = entityManager.find(Artist.class, artistId);
-        if (artist != null) {
+    public boolean removeSong(int songId) {
+        Song song = entityManager.find(Song.class, songId);
+        if (song != null) {
             try{
                 beginTx();
-                entityManager.remove(artist);
+                entityManager.remove(song);
                 commitTx();
             } catch (Exception e) {
                 rollbackTx();
-            }
+        }
             return true;
         }
-        return false;r
+        return false;
     }
 
     private void beginTx() {
@@ -83,7 +85,7 @@ public class ArtistsBean {
             entityManager.getTransaction().commit();
     }
 
-    private void rollbackTx() {››
+    private void rollbackTx() {
         if (entityManager.getTransaction().isActive())
             entityManager.getTransaction().rollback();
     }
