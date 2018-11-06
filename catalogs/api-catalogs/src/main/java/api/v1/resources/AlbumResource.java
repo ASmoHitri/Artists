@@ -15,6 +15,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class AlbumResource {
+    // TODO check POST, PUT
 
     @Inject
     private AlbumBean albumBean;

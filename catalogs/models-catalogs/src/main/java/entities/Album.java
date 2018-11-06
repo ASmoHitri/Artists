@@ -1,7 +1,6 @@
 package entities;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity(name = "albums")
 public class Album {
@@ -13,10 +12,11 @@ public class Album {
     @Column(nullable = false)
     private String name;
 
-//    @OneToMany
-//    @Column(nullable = false)
-//    private List<Artist> artists;
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "artist_id")
+    private Artist artist;
 
+    // TODO: spremeni v Genre genre (glej eno višje)
     @Column(name = "genre_id")
     private int genreId;
 
@@ -37,13 +37,13 @@ public class Album {
         this.name = name;
     }
 
-//    public List<Artist> getArtists() {
-//        return artists;
-//    }
-//
-//    public void setArtists(List<Artist> artist) {
-//        this.artists = artist;
-//    }
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
 
     public int getGenreId() {
         return genreId;

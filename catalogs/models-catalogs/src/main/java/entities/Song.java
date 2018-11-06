@@ -13,16 +13,17 @@ public class Song {
     @Column(nullable = false)
     private String title;
 
-//    @OneToMany
-//    @Column(nullable = false)
-//    private List<Artist> artists;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "id")
-//    private Album album;
+    @OneToMany(mappedBy="song")
+    //@Column(nullable = false) - kako to spraviti v @OneToMany??
+    private List<Artist> artists;
 
-    @Column(name = "genre_id")
-    private int genreId;
+    @ManyToOne
+    @JoinColumn(name = "album_id")
+    private Album album;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "genre_id")
+    private Genre genre;
 
 
     public int getId() {
@@ -41,27 +42,27 @@ public class Song {
         this.title = title;
     }
 
-//    public List<Artist> getArtists() {
-//        return artists;
-//    }
-//
-//    public void setArtists(List<Artist> artists) {
-//        this.artists = artists;
-//    }
-//
-//    public Album getAlbum() {
-//        return album;
-//    }
-//
-//    public void setAlbum(Album album) {
-//        this.album = album;
-//    }
-
-    public int getGenreId() {
-        return genreId;
+    public List<Artist> getArtists() {
+        return artists;
     }
 
-    public void setGenreId(int genreId) {
-        this.genreId = genreId;
+    public void setArtists(List<Artist> artists) {
+        this.artists = artists;
+    }
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
     }
 }

@@ -14,6 +14,7 @@ import java.util.List;
 
 @ApplicationScoped
 public class AlbumBean {
+    // TODO fix post, put
 
     @Context
     protected UriInfo uriInfo;
