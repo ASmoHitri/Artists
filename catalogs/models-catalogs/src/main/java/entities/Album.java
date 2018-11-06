@@ -16,9 +16,9 @@ public class Album {
     @JoinColumn(name = "artist_id")
     private Artist artist;
 
-    // TODO: spremeni v Genre genre (glej eno višje)
-    @Column(name = "genre_id")
-    private int genreId;
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "genre_id")
+    private Genre genre;
 
 
     public int getId() {
@@ -45,12 +45,12 @@ public class Album {
         this.artist = artist;
     }
 
-    public int getGenreId() {
-        return genreId;
+    public Genre getGenre() {
+        return genre;
     }
 
-    public void setGenreId(int genreId) {
-        this.genreId = genreId;
+    public void setGenre(Genre genre) {
+        this.genre = genre;
     }
 }
 

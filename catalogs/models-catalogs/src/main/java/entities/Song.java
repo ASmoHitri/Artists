@@ -13,13 +13,13 @@ public class Song {
     @Column(nullable = false)
     private String title;
 
-    @OneToMany(mappedBy="song")
-    //@Column(nullable = false) - kako to spraviti v @OneToMany??
-    private List<Artist> artists;
+//    @OneToMany(mappedBy="song")
+//    //@Column(nullable = false) - kako to spraviti v @OneToMany??
+//    private List<Artist> artists;
 
-    @ManyToOne
-    @JoinColumn(name = "album_id")
-    private Album album;
+//    @ManyToOne
+//    @JoinColumn(name = "album_id")
+//    private Album album;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "genre_id")
@@ -42,21 +42,21 @@ public class Song {
         this.title = title;
     }
 
-    public List<Artist> getArtists() {
-        return artists;
-    }
+//    public List<Artist> getArtists() {
+//        return artists;
+//    }
+//
+//    public void setArtists(List<Artist> artists) {
+//        this.artists = artists;
+//    }
 
-    public void setArtists(List<Artist> artists) {
-        this.artists = artists;
-    }
-
-    public Album getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(Album album) {
-        this.album = album;
-    }
+//    public Album getAlbum() {
+//        return album;
+//    }
+//
+//    public void setAlbum(Album album) {
+//        this.album = album;
+//    }
 
     public Genre getGenre() {
         return genre;
