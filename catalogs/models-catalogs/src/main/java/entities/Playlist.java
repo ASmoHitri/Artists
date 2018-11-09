@@ -4,6 +4,10 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity(name="playlists")
+@NamedQueries(value =
+        {
+                @NamedQuery(name = "Playlists.updateName", query = "UPDATE playlists p SET p.name=:name")
+        })
 public class Playlist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

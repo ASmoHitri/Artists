@@ -3,6 +3,8 @@ package beans;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
 import entities.Genre;
+import helpers.DBHelpers;
+import helpers.TransactionsHandler;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -40,17 +42,6 @@ public class GenreBean {
     }
 
     public boolean addGenre(Genre genre) {
-        if (genre == null) {
-            return false;
-        }
-        try {
-            TransactionsHandler.beginTx(entityManager);
-            entityManager.persist(genre);
-            TransactionsHandler.commitTx(entityManager);
-        } catch (Exception e) {
-            TransactionsHandler.rollbackTx(entityManager);
-            return false;
-        }
-        return true;
+        return DBHelpers.addObject(entityManager, genre);
     }
 }

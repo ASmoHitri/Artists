@@ -3,6 +3,8 @@ package beans;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
 import entities.Artist;
+import helpers.DBHelpers;
+import helpers.TransactionsHandler;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -30,15 +32,7 @@ public class ArtistsBean {
     }
 
     public void addArtist(Artist artist) {
-        if (artist != null) {
-            try{
-                TransactionsHandler.beginTx(entityManager);
-                entityManager.persist(artist);
-                TransactionsHandler.commitTx(entityManager);
-            } catch (Exception e) {
-                TransactionsHandler.rollbackTx(entityManager);
-            }
-        }
+        DBHelpers.addObject(entityManager, artist);
     }
 
     public Artist updateArtist(int artistId, Artist artist) {
@@ -58,16 +52,6 @@ public class ArtistsBean {
 
     public boolean removeArtist(int artistId) {
         Artist artist = entityManager.find(Artist.class, artistId);
-        if (artist != null) {
-            try{
-                TransactionsHandler.beginTx(entityManager);
-                entityManager.remove(artist);
-                TransactionsHandler.commitTx(entityManager);
-            } catch (Exception e) {
-                TransactionsHandler.rollbackTx(entityManager);
-            }
-            return true;
-        }
-        return false;
+        return DBHelpers.removeObject(entityManager, artist);
     }
 }

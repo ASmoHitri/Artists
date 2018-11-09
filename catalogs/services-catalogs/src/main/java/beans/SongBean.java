@@ -2,9 +2,9 @@ package beans;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
-import entities.Album;
-import entities.Artist;
 import entities.Song;
+import helpers.DBHelpers;
+import helpers.TransactionsHandler;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -62,6 +62,6 @@ public class SongBean {
 
     public boolean removeSong(int songId) {
         Song song = entityManager.find(Song.class, songId);
-        return TransactionsHandler.removeObject(entityManager, song);
+        return DBHelpers.removeObject(entityManager, song);
     }
 }

@@ -3,11 +3,12 @@ package beans;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
 import entities.Album;
+import helpers.DBHelpers;
+import helpers.TransactionsHandler;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
@@ -32,15 +33,7 @@ public class AlbumBean {
     }
 
     public void addAlbum(Album album) {
-        if (album != null) {
-            try{
-                TransactionsHandler.beginTx(entityManager);
-                entityManager.persist(album);
-                TransactionsHandler.commitTx(entityManager);
-            } catch (Exception e) {
-                TransactionsHandler.rollbackTx(entityManager);
-            }
-        }
+        DBHelpers.addObject(entityManager, album);
     }
 
     public Album updateAlbum(int albumId, Album album) {
@@ -61,17 +54,6 @@ public class AlbumBean {
 
     public boolean removeAlbum(int albumId) {
         Album album = entityManager.find(Album.class, albumId);
-        if (album != null) {
-            try{
-                TransactionsHandler.beginTx(entityManager);
-                entityManager.remove(album);
-                TransactionsHandler.commitTx(entityManager);
-            } catch (Exception e) {
-                TransactionsHandler.rollbackTx(entityManager);
-                return false;
-            }
-            return true;
-        }
-        return false;
+        return DBHelpers.removeObject(entityManager, album);
     }
 }
