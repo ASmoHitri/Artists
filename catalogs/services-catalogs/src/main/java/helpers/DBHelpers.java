@@ -1,6 +1,7 @@
 package helpers;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 public class DBHelpers {
     public static boolean addObject(EntityManager entityManager, Object o) {
@@ -32,4 +33,18 @@ public class DBHelpers {
         return true;
     }
 
+    public static boolean executeQuery(EntityManager entityManager, Query query) {
+        if (query == null) {
+            return false;
+        }
+        try{
+            TransactionsHandler.beginTx(entityManager);
+            query.executeUpdate();
+            TransactionsHandler.commitTx(entityManager);
+        } catch (Exception e) {
+            TransactionsHandler.rollbackTx(entityManager);
+            return false;
+        }
+        return true;
+    }
 }

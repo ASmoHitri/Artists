@@ -6,6 +6,7 @@ import java.util.List;
 @Entity(name="playlists")
 @NamedQueries(value =
         {
+                @NamedQuery(name = "Playlists.getByName&User", query = "SELECT p FROM playlists p WHERE p.name=:name AND p.userId=:userId"),
                 @NamedQuery(name = "Playlists.updateName", query = "UPDATE playlists p SET p.name=:name")
         })
 public class Playlist {
@@ -13,11 +14,10 @@ public class Playlist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(unique = true)
     private String name;
 
     @Column(name = "user_id")
-    private int userId;
+    private Integer userId;
 
     @ManyToMany
     @JoinTable(name = "playlists_songs",
@@ -42,11 +42,11 @@ public class Playlist {
         this.name = name;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

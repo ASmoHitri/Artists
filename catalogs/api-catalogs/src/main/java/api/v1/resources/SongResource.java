@@ -67,7 +67,7 @@ public class SongResource {
     public Response deleteSong(@PathParam("id") int songId) {
         boolean success = songBean.removeSong(songId);
         if (success) {
-            return Response.status(Response.Status.GONE).build();
+            return Response.status(Response.Status.NO_CONTENT).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }

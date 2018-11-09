@@ -67,7 +67,7 @@ public class ArtistResource {
         boolean success = artistsBean.removeArtist(artistId);
 
         if (success) {
-            return Response.status(Response.Status.GONE).build();
+            return Response.status(Response.Status.NO_CONTENT).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }

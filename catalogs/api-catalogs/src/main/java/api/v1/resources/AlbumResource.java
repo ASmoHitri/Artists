@@ -71,7 +71,7 @@ public class AlbumResource {
     public Response deleteAlbum(@PathParam("id") int albumId) {
         boolean success = albumBean.removeAlbum(albumId);
         if (success) {
-            return Response.status(Response.Status.GONE).build();
+            return Response.status(Response.Status.NO_CONTENT).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
