@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.List;
 
 @Entity(name = "songs")
@@ -26,7 +27,6 @@ public class Song {
     private Genre genre;
 
     @ManyToMany(mappedBy = "songs")
-//    @Transient
     private List<Playlist> playlists;
 
 
@@ -70,6 +70,7 @@ public class Song {
         this.genre = genre;
     }
 
+    @XmlTransient
     public List<Playlist> getPlaylists() {
         return playlists;
     }
