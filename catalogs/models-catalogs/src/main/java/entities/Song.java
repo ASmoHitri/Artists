@@ -25,6 +25,10 @@ public class Song {
     @JoinColumn(name = "genre_id")
     private Genre genre;
 
+    @ManyToMany(mappedBy = "songs")
+//    @Transient
+    private List<Playlist> playlists;
+
 
     public int getId() {
         return id;
@@ -64,5 +68,13 @@ public class Song {
 
     public void setGenre(Genre genre) {
         this.genre = genre;
+    }
+
+    public List<Playlist> getPlaylists() {
+        return playlists;
+    }
+
+    public void setPlaylists(List<Playlist> playlists) {
+        this.playlists = playlists;
     }
 }

@@ -21,5 +21,9 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
+        <dependency>
+            <groupId>asmohitri</groupId>
+            <artifactId>models-catalogs</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "users")
 @NamedQueries(value =
@@ -32,6 +33,9 @@ public class User {
 
     @Column(name = "artist_id")
     private int artistId;
+
+    @Transient
+    private List<Playlist> playlists;
 
 
     public int getId() {
@@ -88,5 +92,9 @@ public class User {
 
     public void setArtistId(int artistId) {
         this.artistId = artistId;
+    }
+
+    public List<Playlist> getPlaylists() {
+        return playlists;
     }
 }
