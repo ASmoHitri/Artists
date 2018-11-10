@@ -19,8 +19,8 @@ cache:
 
 script:
   - mvn clean package -U
-  - docker build -t streaming/catalogs .
+  - docker build -t mu2729/streaming-catalogs .
 
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push streaming/catalogs
+  - docker push mu2729/streaming-catalogs
