@@ -10,7 +10,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>api-catalogs</artifactId>
+    <artifactId>api</artifactId>
 
     <dependencies>
         <dependency>
@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>asmohitri</groupId>
-            <artifactId>services-catalogs</artifactId>
+            <artifactId>services</artifactId>
         </dependency>
     </dependencies>
 

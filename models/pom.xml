@@ -6,16 +6,22 @@
 
     <parent>
         <groupId>asmohitri</groupId>
-        <artifactId>streaming</artifactId>
+        <artifactId>catalogs</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>catalogs</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>models</artifactId>
 
-    <modules>
-        <module>api-catalogs</module>
-        <module>models-catalogs</module>
-        <module>services-catalogs</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>com.kumuluz.ee</groupId>
+            <artifactId>kumuluzee-jpa-eclipselink</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+    </dependencies>
+
+
 </project>
