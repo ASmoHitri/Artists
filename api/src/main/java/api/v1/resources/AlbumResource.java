@@ -2,11 +2,14 @@ package api.v1.resources;
 
 import beans.AlbumBean;
 import beans.ArtistsBean;
+import beans.GenreBean;
+import entities.Genre;
 import entities.Album;
 import entities.Artist;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.management.Query;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -24,6 +27,9 @@ public class AlbumResource {
 
     @Inject
     private ArtistsBean artistsBean;
+
+    @Inject
+    private GenreBean genreBean;
 
     @GET
     public Response getAlbums() {
@@ -43,10 +49,10 @@ public class AlbumResource {
 
     @POST
     public Response addAlbum(Album album) {
-        if (album == null || album.getName() == null || album.getArtist() == null) {
+        if (album == null || album.getName() == null || album.getArtist() == null || album.getGenre() == null || artistsBean.getArtist(album.getArtist().getId()) == null ||
+                genreBean.getGenre(album.getGenre().getId()) == null /*|| albumBean.getAlbumsbyArtist(album.getArtist()).contains(album)*/) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        // TODO checking for duplicates
         albumBean.addAlbum(album);
         return Response.status(Response.Status.CREATED).entity(album).build();
     }
@@ -54,9 +60,9 @@ public class AlbumResource {
     @PUT
     @Path("{id}")
     public Response updateAlbum(@PathParam("id") int albumId, Album album) {
-        Artist input_artist = artistsBean.getArtist(album.getArtist().getId());
-        if (album == null || albumId < 0 || album.getName() == null ||
-                input_artist == null || input_artist.getName().equals(album.getArtist().getName())){
+
+        if (album == null || albumId < 0 || album.getName() == null || album.getArtist() == null || album.getGenre() == null ||
+                artistsBean.getArtist(album.getArtist().getId()) == null || genreBean.getGenre(album.getGenre().getId()) == null){
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         album = albumBean.updateAlbum(albumId, album);

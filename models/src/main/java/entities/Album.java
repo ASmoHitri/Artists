@@ -3,6 +3,11 @@ package entities;
 import javax.persistence.*;
 
 @Entity(name = "albums")
+@NamedQueries(value =
+        {
+                @NamedQuery(name = "Albums.getbyArtist", query = "SELECT a FROM albums a where a.artist=:artist")
+
+        })
 public class Album {
 
     @Id
