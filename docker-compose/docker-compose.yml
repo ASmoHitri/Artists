@@ -4,18 +4,24 @@ services:
     container_name: postgres
     image: postgres
     ports:
-      - 5432:5432
+      - ${DB0_PORT}:5432
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: streaming
+      POSTGRES_USER: ${DB0_USER}
+      POSTGRES_PASSWORD: ${DB0_PASSWORD}
+      POSTGRES_DB: ${STREAMING_DB}
   subscriptions:
     container_name: subscriptions
     image: mu2729/streaming-subscriptions
     ports:
-      - 8082:8082 # slightly bruh.
-    env_file:
-      - subscriptions.env
+      - ${SUBSCRIPTIONS_PORT}:8080
+    environment:
+      KUMULUZEE_ENV_NAME: ${environment}
+      KUMULUZEE_DATASOURCES0_CONNECTION-URL: jdbc:postgresql://${HOST}:${DB0_PORT}/${STREAMING_DB}
+      KUMULUZEE_DATASOURCES0_USERNAME: ${DB0_USER}
+      KUMULUZEE_DATASOURCES0_PASSWORD: ${DB0_PASSWORD}
+      KUMULUZEE_SERVER_BASE-URL: http://${HOST}
+      KUMULUZEE_SERVER_HTTP_PORT: 8080
+      KUMULUZEE_CONFIG_ETCD_HOSTS=http: //${HOST}:2379
     depends_on:
       - postgres
       - etcd
@@ -23,9 +29,15 @@ services:
     container_name: catalogs
     image: mu2729/streaming-catalogs
     ports:
-      - 8081:8081
-    env_file:
-      - catalogs.env
+      - ${CATALOGS_PORT}:8080
+    environment:
+      KUMULUZEE_ENV_NAME: ${environment}
+      KUMULUZEE_DATASOURCES0_CONNECTION-URL: jdbc:postgresql://${HOST}:${DB0_PORT}/${STREAMING_DB}
+      KUMULUZEE_DATASOURCES0_USERNAME: ${DB0_USER}
+      KUMULUZEE_DATASOURCES0_PASSWORD: ${DB0_PASSWORD}
+      KUMULUZEE_SERVER_BASE-URL: http://${HOST}
+      KUMULUZEE_SERVER_HTTP_PORT: 8080
+      KUMULUZEE_CONFIG_ETCD_HOSTS=http: //${HOST}:2379
     depends_on:
       - postgres
       - etcd
