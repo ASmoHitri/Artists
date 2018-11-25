@@ -19,3 +19,5 @@ kumuluzee:
   discovery:
     etcd:
       hosts: http://localhost:2379
+tests:
+  maintenance-mode: false

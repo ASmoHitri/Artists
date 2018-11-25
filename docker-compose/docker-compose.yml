@@ -16,6 +16,9 @@ services:
       - 8082:8082 # slightly bruh.
     env_file:
       - subscriptions.env
+    depends_on:
+      - postgres
+      - etcd
   catalogs:
     container_name: catalogs
     image: mu2729/streaming-catalogs
@@ -23,6 +26,9 @@ services:
       - 8081:8081
     env_file:
       - catalogs.env
+    depends_on:
+      - postgres
+      - etcd
   etcd:
     image: quay.io/coreos/etcd:latest
     ports:
