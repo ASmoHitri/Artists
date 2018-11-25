@@ -4,7 +4,6 @@ import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
 import entities.Genre;
 import helpers.DBHelpers;
-import helpers.TransactionsHandler;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;

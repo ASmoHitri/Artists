@@ -15,9 +15,9 @@ kumuluzee:
       port: 8081
   config:
     etcd:
-      hosts: http://localhost:2379
+      hosts: http://192.168.99.100:2379
   discovery:
     etcd:
-      hosts: http://localhost:2379
+      hosts: http://192.168.99.100:2379
 tests:
   maintenance-mode: false
