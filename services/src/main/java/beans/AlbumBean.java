@@ -3,12 +3,14 @@ package beans;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
 import entities.Album;
+import entities.Artist;
 import helpers.DBHelpers;
 import helpers.TransactionsHandler;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 @ApplicationScoped
 public class AlbumBean {
     // TODO fix post, put
+    // mislim, da je okej
 
     @Context
     protected UriInfo uriInfo;
@@ -32,18 +35,16 @@ public class AlbumBean {
         return entityManager.find(Album.class, albumId);
     }
 
-    public void addAlbum(Album album) {
-        DBHelpers.addObject(entityManager, album);
+    public boolean addAlbum(Album album) { return DBHelpers.addObject(entityManager, album);
     }
 
     public Album updateAlbum(int albumId, Album album) {
-        if (getAlbum(albumId) == null || album == null) {
+        if (getAlbum(albumId) == null || album.getArtist() == null || album.getGenre() == null || album.getName() == null) {
             return null;
         }
         try{
             TransactionsHandler.beginTx(entityManager);
             album.setId(albumId);
-            //album.setArtists(artists);
             entityManager.merge(album);
             TransactionsHandler.commitTx(entityManager);
         } catch (Exception e) {
@@ -55,5 +56,11 @@ public class AlbumBean {
     public boolean removeAlbum(int albumId) {
         Album album = entityManager.find(Album.class, albumId);
         return DBHelpers.removeObject(entityManager, album);
+    }
+
+    public List<Album> getAlbumsbyArtist(Artist artist){
+        Query query = entityManager.createNamedQuery("Albums.getbyArtist");
+        query.setParameter("artist", artist);
+        return query.getResultList();
     }
 }
