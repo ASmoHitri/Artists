@@ -13,3 +13,9 @@ kumuluzee:
     base-url : http://localhost
     http:
       port: 8081
+  config:
+    etcd:
+      hosts: http://localhost:2379
+  discovery:
+    etcd:
+      hosts: http://localhost:2379
