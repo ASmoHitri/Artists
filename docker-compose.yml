@@ -1,6 +1,7 @@
 version: "3"
 services:
   postgres:
+    container_name: postgres
     image: postgres
     ports:
       - 5432:5432
@@ -8,3 +9,17 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: streaming
+  subscriptions:
+    container_name: subscriptions
+    image: mu2729/streaming-subscriptions
+    ports:
+      - 8082:8082 # slightly bruh.
+    env_file:
+      - subscriptions.env
+  catalogs:
+    container_name: catalogs
+    image: mu2729/streaming-catalogs
+    ports:
+      - 8081:8081
+    env_file:
+      - catalogs.env
