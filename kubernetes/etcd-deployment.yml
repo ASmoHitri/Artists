@@ -35,10 +35,8 @@ spec:
         name: etcd
         ports:
         - containerPort: 2379
-          name: client
           protocol: TCP
         - containerPort: 2380
-          name: server
           protocol: TCP
         volumeMounts:
         - mountPath: /etcd-data
@@ -54,11 +52,10 @@ kind: Service
 metadata:
   name: etcd
 spec:
-  type: NodePort
-  ports:
-  - name: client
-    port: 2379
-    protocol: TCP
-    targetPort: 2379
+  type: ClusterIP
   selector:
-    app: etcd
+      app: etcd
+  ports:
+  - protocol: TCP
+    port: 2379
+    targetPort: 2379
