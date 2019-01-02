@@ -9,6 +9,15 @@ services:
       POSTGRES_USER: ${DB0_USER}
       POSTGRES_PASSWORD: ${DB0_PASSWORD}
       POSTGRES_DB: ${STREAMING_DB}
+  uploader-db:
+      container_name: uploader-db
+      image: postgres
+      ports:
+        - ${UDB_PORT}:5432
+      environment:
+        POSTGRES_USER: ${UDB_USER}
+        POSTGRES_PASSWORD: ${UDB_PASSWORD}
+        POSTGRES_DB: ${STREAMING_DB}
   subscriptions:
     container_name: subscriptions
     image: mu2729/streaming-subscriptions
@@ -45,6 +54,7 @@ services:
       - etcd
   etcd:
     image: quay.io/coreos/etcd:latest
+    container_name: etcd
     ports:
     - "2379:2379"
     command: >-
