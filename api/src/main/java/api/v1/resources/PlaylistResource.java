@@ -3,6 +3,7 @@ package api.v1.resources;
 
 import beans.PlaylistBean;
 import beans.SongBean;
+import com.kumuluz.ee.logs.cdi.Log;
 import entities.Playlist;
 import entities.Song;
 
@@ -13,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+@Log
 @ApplicationScoped
 @Path("/playlists")
 @Produces(MediaType.APPLICATION_JSON)

@@ -1,9 +1,7 @@
 package api.v1.resources;
 
 import beans.SongBean;
-import entities.Album;
-import entities.Artist;
-import entities.Genre;
+import com.kumuluz.ee.logs.cdi.Log;
 import entities.Song;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -13,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+@Log
 @ApplicationScoped
 @Path("/songs")
 @Produces(MediaType.APPLICATION_JSON)

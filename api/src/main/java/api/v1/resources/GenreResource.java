@@ -1,6 +1,7 @@
 package api.v1.resources;
 
 import beans.GenreBean;
+import com.kumuluz.ee.logs.cdi.Log;
 import entities.Genre;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -10,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+@Log
 @ApplicationScoped
 @Path("/genres")
 @Produces(MediaType.APPLICATION_JSON)

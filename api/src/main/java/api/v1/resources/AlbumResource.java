@@ -3,18 +3,17 @@ package api.v1.resources;
 import beans.AlbumBean;
 import beans.ArtistsBean;
 import beans.GenreBean;
-import entities.Genre;
+import com.kumuluz.ee.logs.cdi.Log;
 import entities.Album;
-import entities.Artist;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.management.Query;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+@Log
 @ApplicationScoped
 @Path("/albums")
 @Produces(MediaType.APPLICATION_JSON)
