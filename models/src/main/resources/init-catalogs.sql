@@ -6,4 +6,6 @@ INSERT INTO genres(name) VALUES ('Rock');
 
 INSERT INTO albums(name, artist_id, genre_id) VALUES ('Merry Christmas', 1, 2);
 
+INSERT INTO songs(title, artist_id, album_id, genre_id) VALUES ('Still no snow', 1, 1, 2);
+
 INSERT INTO playlists(name, user_id) VALUES ('Ta dobre', 1);

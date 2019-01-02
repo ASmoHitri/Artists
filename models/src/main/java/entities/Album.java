@@ -17,11 +17,11 @@ public class Album {
     @Column(nullable = false)
     private String name;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "artist_id")
     private Artist artist;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "genre_id")
     private Genre genre;
 

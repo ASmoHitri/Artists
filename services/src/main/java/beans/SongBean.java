@@ -5,7 +5,6 @@ import com.kumuluz.ee.rest.utils.JPAUtils;
 import entities.Song;
 import helpers.DBHelpers;
 import helpers.TransactionsHandler;
-import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -32,7 +31,6 @@ public class SongBean {
         return entityManager.find(Song.class, songId);
     }
 
-    @Timed
     public void addSong(Song song) {
         if (song != null) {
             try{

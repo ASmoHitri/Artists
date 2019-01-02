@@ -1,7 +1,10 @@
 package api.v1.resources;
 
+import api.v1.dtos.SongDto;
+import beans.AlbumBean;
 import beans.SongBean;
 import com.kumuluz.ee.logs.cdi.Log;
+import entities.Album;
 import entities.Song;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -21,6 +24,9 @@ public class SongResource {
     @Inject
     private SongBean songBean;
 
+    @Inject
+    private AlbumBean albumBean;
+
     @GET
     public Response getSongs() {
         List<Song> songs = songBean.getSongs();
@@ -38,20 +44,27 @@ public class SongResource {
     }
 
     @POST
-    public Response addSong(Song song) {
-        // TODO: preveri kako je s preverjanjem artist==null!
-        if (song == null || song.getTitle() == null) {
+    public Response addSong(SongDto song) {
+        if (song == null || song.getTitle() == null || song.getArtist() == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        songBean.addSong(song);
-        return Response.status(Response.Status.CREATED).entity(song).build();
+        Album album = null;
+        if (song.getAlbumId() != null) {
+            album = albumBean.getAlbum(song.getAlbumId());
+            if(song.getArtist().getId() != album.getArtist().getId()) {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+        }
+        Song toAdd = new Song(null, song.getTitle(), song.getArtist(), album, song.getGenre());
+        songBean.addSong(toAdd);
+        return Response.status(Response.Status.CREATED).entity(toAdd).build();
     }
 
-    @PUT // popravi, ker je sedaj song list, dodaj genre.
-    @Path("{id}") // je to okej? bi tu moral biti se Artist artist in Album album?, dodatni checki?
+    @PUT
+    @Path("{id}")
     public Response updateSong(@PathParam("id") int songId, Song song) {
-        // TODO
-        if (song == null || songId < 0 || song.getTitle() == null) {
+        // TODO dodatni checki?
+        if (song == null || songId < 0 || song.getTitle() == null || song.getArtist() == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         song = songBean.updateSong(songId, song);

@@ -9,32 +9,40 @@ public class Song {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false)
     private String title;
 
-//    @OneToMany(mappedBy="song")
-//    //@Column(nullable = false) - kako to spraviti v @OneToMany??
-//    private List<Artist> artists;
+    @ManyToOne
+    @JoinColumn(name = "artist_id")
+    private Artist artist;
 
     @ManyToOne
     @JoinColumn(name = "album_id")
     private Album album;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "genre_id")
     private Genre genre;
 
     @ManyToMany(mappedBy = "songs")
     private List<Playlist> playlists;
 
+    public Song(){};
+    public Song(Integer id, String title, Artist artist, Album album, Genre genre) {
+        this.id = id;
+        this.title = title;
+        this.artist = artist;
+        this.album = album;
+        this.genre = genre;
+    }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -46,13 +54,13 @@ public class Song {
         this.title = title;
     }
 
-//    public List<Artist> getArtists() {
-//        return artists;
-//    }
-//
-//    public void setArtists(List<Artist> artists) {
-//        this.artists = artists;
-//    }
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
 
     public Album getAlbum() {
         return album;
