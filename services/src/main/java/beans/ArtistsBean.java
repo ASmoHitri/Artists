@@ -5,6 +5,7 @@ import com.kumuluz.ee.rest.utils.JPAUtils;
 import entities.Artist;
 import helpers.DBHelpers;
 import helpers.TransactionsHandler;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -22,6 +23,7 @@ public class ArtistsBean {
     @PersistenceContext(unitName = "catalogs-jpa")
     private EntityManager entityManager;
 
+    @Timed(name = "get-artists")
     public List<Artist> getArtists() {
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
         return JPAUtils.queryEntities(entityManager, Artist.class, queryParameters);

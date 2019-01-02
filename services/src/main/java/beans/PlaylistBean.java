@@ -5,6 +5,7 @@ import com.kumuluz.ee.rest.utils.JPAUtils;
 import entities.Playlist;
 import helpers.DBHelpers;
 import helpers.TransactionsHandler;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -27,6 +28,7 @@ public class PlaylistBean {
         return JPAUtils.queryEntities(entityManager, Playlist.class, queryParameters);
     }
 
+    @Timed
     public Playlist getPlaylist(int playlistId) {
         return entityManager.find(Playlist.class, playlistId);
     }
