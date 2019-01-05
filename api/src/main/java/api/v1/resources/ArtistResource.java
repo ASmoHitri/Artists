@@ -42,10 +42,11 @@ public class ArtistResource {
         if (artist == null || artist.getName() == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
+        Artist existing = artistsBean.getArtistsByName(artist.getName());
+        if (existing != null) {
+            return Response.status(Response.Status.CONFLICT).build();
+        }
         artistsBean.addArtist(artist);
-//        if (artist.getId() > 0) {
-//            return Response.status(Response.Status.CONFLICT).build();
-//        }
         return Response.status(Response.Status.CREATED).entity(artist).build();
     }
 

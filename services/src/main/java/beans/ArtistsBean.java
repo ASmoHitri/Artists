@@ -10,6 +10,7 @@ import org.eclipse.microprofile.metrics.annotation.Timed;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
@@ -31,6 +32,15 @@ public class ArtistsBean {
 
     public Artist getArtist(int artistId) {
         return entityManager.find(Artist.class, artistId);
+    }
+
+    public Artist getArtistsByName(String name) {
+        Query query = entityManager.createNamedQuery("Artists.getArtistsByName");
+        query.setParameter("name", name);
+        List<Artist> artists =  query.getResultList();
+        if (artists.isEmpty())
+            return null;
+        return artists.get(0);
     }
 
     public void addArtist(Artist artist) {

@@ -33,7 +33,7 @@ public class GenreResource {
         }
         // check if genre already exists
         if (genreBean.getGenreByName(genre.getName()) != null) {
-            Response.status(Response.Status.CONFLICT).build();
+            return Response.status(Response.Status.CONFLICT).build();
         }
         Boolean successfullyAdded = genreBean.addGenre(genre);
         if (successfullyAdded) {

@@ -97,8 +97,8 @@ public class PlaylistResource {
         // check if song is already on playlist
         Playlist playlist = playlistBean.getPlaylist(playlistId);
         Song song = songBean.getSong(requestSong.getId());
-        System.out.println(playlist);
-        System.out.println(song);
+//        System.out.println(playlist);
+//        System.out.println(song);
         if (playlist == null || song == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }

@@ -19,7 +19,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class AlbumResource {
-    // TODO check POST, PUT
+    // TODO check PUT
 
     @Inject
     private AlbumBean albumBean;
@@ -49,7 +49,7 @@ public class AlbumResource {
     @POST
     public Response addAlbum(Album album) {
         if (album == null || album.getName() == null || album.getArtist() == null || album.getGenre() == null || artistsBean.getArtist(album.getArtist().getId()) == null ||
-                genreBean.getGenre(album.getGenre().getId()) == null /*|| albumBean.getAlbumsbyArtist(album.getArtist()).contains(album)*/) {
+                genreBean.getGenre(album.getGenre().getId()) == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         albumBean.addAlbum(album);
