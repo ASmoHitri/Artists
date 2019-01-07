@@ -4,6 +4,7 @@ package api.v1.resources;
 import beans.PlaylistBean;
 import beans.SongBean;
 import com.kumuluz.ee.logs.cdi.Log;
+import configs.AppConfigs;
 import entities.Playlist;
 import entities.Song;
 
@@ -26,6 +27,9 @@ public class PlaylistResource {
 
     @Inject
     private SongBean songBean;
+
+    @Inject
+    private AppConfigs appConfig;
 
 
     @GET
@@ -81,6 +85,9 @@ public class PlaylistResource {
     @DELETE
     @Path("{id}")
     public Response removePlaylist(@PathParam("id") int playlistId) {
+        if(appConfig.getMaintenanceMode()) {
+            return Response.status(Response.Status.SERVICE_UNAVAILABLE).build();
+        }
         boolean success = playlistBean.removePlaylist(playlistId);
         if (success) {
             return Response.status(Response.Status.NO_CONTENT).build();

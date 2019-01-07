@@ -34,5 +34,5 @@ kumuluzee:
       status-codes: 500
     - name: songs-endpoint
       url-pattern: /api/v1/songs/*
-tests:
+service:
   maintenance-mode: false
