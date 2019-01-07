@@ -29,8 +29,4 @@ INSERT INTO songs(title, artist_id, album_id, genre_id) VALUES ('Everlong', 5, 5
 INSERT INTO songs(title, artist_id, album_id, genre_id) VALUES ('My Hero', 5 ,5, 2)
 INSERT INTO songs(title, artist_id, album_id, genre_id) VALUES ('Empire state of mind', 2, 2, 4)
 
-
-
-
-
 INSERT INTO playlists(name, user_id) VALUES ('Ta dobre', 1);
