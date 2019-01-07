@@ -13,7 +13,7 @@ spec:
         app: postgres
     spec:
       containers:
-      - image: postgres:latest
+      - image: mu2729/streaming-postgres
         name: postgres
         env:
         - name: POSTGRES_USER
