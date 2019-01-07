@@ -9,15 +9,6 @@ services:
       POSTGRES_USER: ${DB0_USER}
       POSTGRES_PASSWORD: ${DB0_PASSWORD}
       POSTGRES_DB: ${STREAMING_DB}
-  subsriptions-db:
-    container_name: subscriptions-db
-      image: postgres
-      ports:
-        - ${SDB_PORT}:5432
-      environment:
-        POSTGRES_USER: ${SDB_USER}
-        POSTGRES_PASSWORD: ${SDB_PASSWORD}
-        POSTGRES_DB: ${STREAMING_DB}
   uploader-db:
       container_name: uploader-db
       image: postgres
@@ -34,15 +25,15 @@ services:
       - ${SUBSCRIPTIONS_PORT}:8080
     environment:
       KUMULUZEE_ENV_NAME: ${ENVIRONMENT}
-      KUMULUZEE_DATASOURCES0_CONNECTION-URL: jdbc:postgresql://${HOST}:${SDB_PORT}/${STREAMING_DB}
-      KUMULUZEE_DATASOURCES0_USERNAME: ${SDB_USER}
-      KUMULUZEE_DATASOURCES0_PASSWORD: ${SDB_PASSWORD}
+      KUMULUZEE_DATASOURCES0_CONNECTION-URL: jdbc:postgresql://${HOST}:${DB0_PORT}/${SUBSCRIPTIONS_DB}
+      KUMULUZEE_DATASOURCES0_USERNAME: ${D0B_USER}
+      KUMULUZEE_DATASOURCES0_PASSWORD: ${DB0_PASSWORD}
       KUMULUZEE_SERVER_BASE-URL: http://${HOST}:${SUBSCRIPTIONS_PORT}
       KUMULUZEE_SERVER_HTTP_PORT: 8080
       KUMULUZEE_CONFIG_ETCD_HOSTS: http://${HOST}:2379
       KUMULUZEE_DISCOVERY_ETCD_HOSTS: http://${HOST}:2379
     depends_on:
-      - subsriptions-db
+      - postgres
       - etcd
   catalogs:
     container_name: catalogs
@@ -68,7 +59,7 @@ services:
     - ${RECOMMENDATIONS_PORT}:8080
     environment:
       KUMULUZEE_ENV_NAME: ${ENVIRONMENT}
-      KUMULUZEE_SERVER_BASE-URL: http://${HOST}:${CATALOGS_PORT}
+      KUMULUZEE_SERVER_BASE-URL: http://${HOST}:${RECOMMENDATIONS_PORT}
       KUMULUZEE_SERVER_HTTP_PORT: 8080
       KUMULUZEE_CONFIG_ETCD_HOSTS: http://${HOST}:2379
       KUMULUZEE_DISCOVERY_ETCD_HOSTS: http://${HOST}:2379
