@@ -3,6 +3,7 @@ package beans;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
 import entities.Playlist;
+import entities.Song;
 import helpers.DBHelpers;
 import helpers.TransactionsHandler;
 import org.eclipse.microprofile.metrics.annotation.Timed;
@@ -30,6 +31,7 @@ public class PlaylistBean {
 
     @Timed
     public Playlist getPlaylist(int playlistId) {
+        entityManager.clear();
         return entityManager.find(Playlist.class, playlistId);
     }
 
@@ -70,17 +72,20 @@ public class PlaylistBean {
         return DBHelpers.removeObject(entityManager, playlist);
     }
 
-    public boolean addSongToPlaylist(int playlistId, int songId) {
-        Query query = entityManager.createNativeQuery("INSERT INTO playlists_songs (playlist_id, song_id) VALUES (?,?)");
-        query.setParameter(1, playlistId);
-        query.setParameter(2, songId);
-        return DBHelpers.executeQuery(entityManager, query);
+    public boolean addSongToPlaylist(Playlist playlist, Song song) {
+        playlist.getSongs().add(song);
+        return DBHelpers.updateObject(entityManager, playlist);
     }
 
-    public boolean removeSongFromPlaylist(int playlistId, int songId) {
-        Query query = entityManager.createNativeQuery("DELETE FROM playlists_songs WHERE playlist_id =? AND song_id=?");
-        query.setParameter(1, playlistId);
-        query.setParameter(2, songId);
-        return DBHelpers.executeQuery(entityManager, query);
+    public boolean removeSongFromPlaylist(int playlistId, Song song) {
+        Playlist playlist = getPlaylist(playlistId);
+        List<Song> playlistSongs = playlist.getSongs();
+        for(Song s: playlistSongs) {
+            if(s.getId().equals(song.getId())) {
+                playlistSongs.remove(s);
+                break;
+            }
+        }
+        return DBHelpers.updateObject(entityManager, playlist);
     }
 }

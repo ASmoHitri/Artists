@@ -51,14 +51,9 @@ public class ArtistsBean {
         if (getArtist(artistId) == null || artist == null) {
             return null;
         }
-        try{
-            TransactionsHandler.beginTx(entityManager);
-            artist.setId(artistId);
-            entityManager.merge(artist);
-            TransactionsHandler.commitTx(entityManager);
-        } catch (Exception e) {
-            TransactionsHandler.rollbackTx(entityManager);
-        }
+        artist.setId(artistId);
+        Boolean success = DBHelpers.updateObject(entityManager, artist);
+        if (!success) return null;
         return artist;
     }
 

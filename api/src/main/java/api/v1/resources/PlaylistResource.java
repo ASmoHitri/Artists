@@ -97,17 +97,17 @@ public class PlaylistResource {
         // check if song is already on playlist
         Playlist playlist = playlistBean.getPlaylist(playlistId);
         Song song = songBean.getSong(requestSong.getId());
-//        System.out.println(playlist);
-//        System.out.println(song);
         if (playlist == null || song == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         List<Song> playlistSongs = playlist.getSongs();
-        if (playlistSongs.contains(song)) {
-            return Response.status(Response.Status.CONFLICT).build();
+        for(Song s : playlistSongs) {
+            if (s.getId().equals(song.getId())) {
+                return Response.status(Response.Status.CONFLICT).build();
+            }
         }
         // add song to playlist
-        Boolean success = playlistBean.addSongToPlaylist(playlistId, requestSong.getId());
+        Boolean success = playlistBean.addSongToPlaylist(playlist, song);
         if (!success) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
@@ -117,7 +117,8 @@ public class PlaylistResource {
     @DELETE
     @Path("{id}/songs/{song_id}")
     public Response removeSong(@PathParam("id") int playlistId, @PathParam("song_id") int songId) {
-        Boolean success = playlistBean.removeSongFromPlaylist(playlistId, songId);
+        Song song = songBean.getSong(songId);
+        Boolean success = playlistBean.removeSongFromPlaylist(playlistId, song);
         if (!success) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }

@@ -21,8 +21,8 @@ public class Playlist {
 
     @ManyToMany
     @JoinTable(name = "playlists_songs",
-            joinColumns = @JoinColumn(name = "playlist_id"),
-            inverseJoinColumns = @JoinColumn(name = "song_id"))
+            joinColumns = @JoinColumn(name = "playlist_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "song_id", referencedColumnName = "id"))
     private List<Song> songs;
 
 

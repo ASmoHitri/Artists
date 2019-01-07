@@ -33,6 +33,20 @@ public class DBHelpers {
         return true;
     }
 
+    public static boolean updateObject(EntityManager entityManager, Object o) {
+        if (o != null) {
+            try{
+                TransactionsHandler.beginTx(entityManager);
+                entityManager.merge(o);
+                TransactionsHandler.commitTx(entityManager);
+            } catch (Exception e) {
+                TransactionsHandler.rollbackTx(entityManager);
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static boolean executeQuery(EntityManager entityManager, Query query) {
         if (query == null) {
             return false;
