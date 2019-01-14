@@ -78,6 +78,25 @@ services:
       KUMULUZEE_DISCOVERY_ETCD_HOSTS: http://${HOST}:2379
     depends_on:
     - etcd
+  subscriptions:
+    container_name: uploader
+    image: mu2729/streaming-uploader
+    ports:
+      - ${UPLOADER_PORT}:8080
+    environment:
+      KUMULUZEE_ENV_NAME: ${ENVIRONMENT}
+      KUMULUZEE_DATASOURCES0_CONNECTION-URL: jdbc:postgresql://${HOST}:${UDB_PORT}/${STREAMING_DB}
+      KUMULUZEE_DATASOURCES0_USERNAME: ${UDB_USER}
+      KUMULUZEE_DATASOURCES0_PASSWORD: ${UDB_PASSWORD}
+      KUMULUZEE_SERVER_BASE-URL: http://${HOST}:${UPLOADER_PORT}
+      KUMULUZEE_SERVER_HTTP_PORT: 8080
+      KUMULUZEE_CONFIG_ETCD_HOSTS: http://${HOST}:2379
+      KUMULUZEE_DISCOVERY_ETCD_HOSTS: http://${HOST}:2379
+      SERVICE_OS: linux
+      SERVICE_FILES_PATH: /files/
+    depends_on:
+      - uploader-db
+      - etcd
 
   etcd:
     image: quay.io/coreos/etcd:latest
