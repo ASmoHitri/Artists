@@ -43,6 +43,10 @@
             <artifactId>kumuluzee-metrics-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.mashape.unirest</groupId>
+            <artifactId>unirest-java</artifactId>
+        </dependency>
+        <dependency>
             <groupId>asmohitri</groupId>
             <artifactId>models</artifactId>
         </dependency>
