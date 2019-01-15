@@ -10,7 +10,7 @@
         </Socket>
     </Appenders>
     <Loggers>
-        <Root level="info">
+        <Root level="trace">
             <AppenderRef ref="console" level="warning"/>
             <AppenderRef ref="logstash" level="all"/>
         </Root>
